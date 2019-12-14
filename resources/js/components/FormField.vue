@@ -18,6 +18,7 @@
                 class="mb-4"
                 ref='cropper'
                 :view-mode="1"
+                :auto-crop-area="1"
                 :aspect-ratio="field.aspectRatio || NaN"
                 :src="imgSrc"
             ></vue-cropper>
