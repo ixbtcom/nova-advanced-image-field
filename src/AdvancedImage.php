@@ -23,6 +23,8 @@ class AdvancedImage extends File
      */
     public $croppable = false;
 
+    public $cropArea = 1;
+
     /**
      * The fixed aspect ratio of the crop box.
      *
@@ -167,6 +169,8 @@ class AdvancedImage extends File
         return array_merge([
             'croppable'   => $this->croppable,
             'aspectRatio' => $this->cropAspectRatio,
+            'autoCropArea' => $this->cropArea,
+
         ], parent::meta());
     }
 }
