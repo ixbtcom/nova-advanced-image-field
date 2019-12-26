@@ -70,9 +70,9 @@ class AdvancedImage extends File
         Image::configure(['driver' => 'gd']);
 
         $this->thumbnail(function () {
-            return $this->value ? Storage::disk($this->disk)->url($this->value) : null;
+            return $this->value ? Storage::disk($this->disk)->getDriver()->getAdapter()->getUrl($this->value) : null;
         })->preview(function () {
-            return $this->value ? Storage::disk($this->disk)->url($this->value) : null;
+            return $this->value ? Storage::disk($this->disk)->getDriver()->getAdapter()->getUrl($this->value) : null;
         });
     }
 
