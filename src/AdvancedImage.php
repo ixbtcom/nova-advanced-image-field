@@ -23,6 +23,8 @@ class AdvancedImage extends File
      */
     public $croppable = false;
 
+    public $autoCropArea = 1;
+
     /**
      * The fixed aspect ratio of the crop box.
      *
@@ -68,9 +70,9 @@ class AdvancedImage extends File
         Image::configure(['driver' => 'gd']);
 
         $this->thumbnail(function () {
-            return $this->value ? Storage::disk($this->disk)->url($this->value) : null;
+            return $this->value ? Storage::disk($this->disk)->getDriver()->getAdapter()->getUrl($this->value) : null;
         })->preview(function () {
-            return $this->value ? Storage::disk($this->disk)->url($this->value) : null;
+            return $this->value ? Storage::disk($this->disk)->getDriver()->getAdapter()->getUrl($this->value) : null;
         });
     }
 
@@ -91,6 +93,13 @@ class AdvancedImage extends File
         }
 
         $this->croppable = $param;
+
+        return $this;
+    }
+
+    public function autoCropArea($cropArea = 1)
+    {
+        $this->autoCropArea = $cropArea;
 
         return $this;
     }
@@ -167,6 +176,8 @@ class AdvancedImage extends File
         return array_merge([
             'croppable'   => $this->croppable,
             'aspectRatio' => $this->cropAspectRatio,
+            'autoCropArea' => $this->autoCropArea,
+
         ], parent::meta());
     }
 }
